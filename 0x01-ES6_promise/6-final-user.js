@@ -5,11 +5,14 @@ import uploadPhoto from './5-photo-reject';
 export default function handleProfileSignup(firstName, lastName, fileName) {
   return Promise.allSettled([signUpUser(firstName, lastName), uploadPhoto(fileName)])
     .then((value) => {
-      const newArr = value.map((promise) => {
+      const newArr = [];
+      value.forEach((promise) => {
         if (promise.status === 'fufilled') {
-          return ({ status: promise.status, value: promise.value });
+          newArr.push({ status: promise.status, value: promise.value });
+        } else {
+          newArr.push({ status: promise.status, value: `${promise.reason}` });
         }
-        return ({ status: promise.status, value: `${promise.reason}` });
       });
+      return newArr;
     });
 }
