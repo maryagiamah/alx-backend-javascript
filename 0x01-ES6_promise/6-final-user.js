@@ -4,9 +4,9 @@ import uploadPhoto from './5-photo-reject';
 
 export default function handleProfileSignup(firstName, lastName, fileName) {
   return Promise.allSettled([signUpUser(firstName, lastName), uploadPhoto(fileName)])
-    .then((value) => {
+    .then((values) => {
       const newArr = [];
-      value.forEach((promise) => {
+      values.forEach((promise) => {
         if (promise.status === 'fufilled') {
           newArr.push({ status: promise.status, value: promise.value });
         } else {
