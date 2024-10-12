@@ -5,5 +5,5 @@ export default function updateUniqueItems(newMap) {
     }
     return newMap;
   }
-  throw new Error('Cannot proces');
+  throw new Error('Cannot process');
 }
