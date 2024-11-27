@@ -5,7 +5,7 @@ function countStudents(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, (err, val) => {
       if (err) {
-        reject(new Error('Cannot load the database'));
+        reject(err);
       } else {
         let data = val.toString().split('\n').filter((row) => row.trim() !== '');
         data = data.slice(1);
@@ -41,12 +41,11 @@ const app = http.createServer((req, res) => {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     res.write('This is the list of our students\n');
-
     countStudents(process.argv[2]).then((data) => {
       res.end(data);
-    }).catch((err) => {
+    }).catch(() => {
       res.statusCode = 404;
-      res.end(err);
+      res.end('Cannot load the database');
     });
   }
 }).listen(1245);
