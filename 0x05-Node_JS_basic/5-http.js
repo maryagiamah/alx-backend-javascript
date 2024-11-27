@@ -1,6 +1,4 @@
 const http = require('http');
-const countStudents = require('./3-read_file_async');
-
 const fs = require('fs');
 
 function countStudents(path) {
@@ -13,7 +11,9 @@ function countStudents(path) {
         data = data.slice(1);
 
         const fields = {};
-        console.log(`Number of students: ${data.length}`);
+        const output = [];
+
+        output.push(`Number of students: ${data.length}`);
         data.forEach((row) => {
           const field = row.split(',').slice(-1);
 
@@ -27,24 +27,27 @@ function countStudents(path) {
           const numStud = fields[field].length;
           const studList = fields[field].join(', ');
 
-          console.log(`Number of students in ${field}: ${numStud}. List: ${studList}`);
+          output.push(`Number of students in ${field}: ${numStud}. List: ${studList}`);
         }
-        resolve(val);
+        resolve(output.join('\n'));
       }
     });
   });
 }
 
-module.exports = countStudents;
-
 const app = http.createServer((req, res) => {
-  request.setHeader('Content-Type', 'text/plain'); 
+  res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
-    res.write('Hello Holberton School!');
+    res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    res.write('This is the list of our students');
-    const data = countStudents(process.argv[2]);
-    res.end(data);
+    res.write('This is the list of our students\n');
+
+    countStudents(process.argv[2]).then((data) => {
+      res.end(data);
+    }).catch((err) => {
+      res.statusCode = 404;
+      res.end(err);
+    });
   }
 }).listen(1245);
 
