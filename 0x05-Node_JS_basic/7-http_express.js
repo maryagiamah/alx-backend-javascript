@@ -37,4 +37,20 @@ function countStudents(path) {
 
 const app = express();
 
-app.get('/')
+app.get('/', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.send('Hello Holberton School!');
+});
+
+app.get('/students', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  countStudents(process.argv[2]).then((data) => {
+    res.send(['This is the list of our students', data].join('\n'));
+  }).catch(() => {
+    res.send('This is the list of our students\nCannot load the database');
+  });
+});
+
+app.listen(1245);
+
+module.exports = app;
