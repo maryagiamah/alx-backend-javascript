@@ -20,10 +20,10 @@ class StudentsController {
 
   static getAllStudentsByMajor(request, response) {
     if (['CS', 'SWE'].includes(request.params.major)) {
-      const { major } = request.params.major;
+      const { major } = request.params;
 
       readDatabase(process.argv[2]).then((data) => {
-        const output = `List: ${data[major].join(', ')}\n`;
+        const output = `List: ${data[major].join(', ')}`;
 
         response.status(200).send(output);
       }).catch(() => {
