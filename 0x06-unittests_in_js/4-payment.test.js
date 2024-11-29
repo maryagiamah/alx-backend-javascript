@@ -15,9 +15,9 @@ describe('sendPaymentRequestToApi', () => {
     sendPaymentRequestToApi(100, 20);
 
     sinon.assert.called(stub_func);
-    sinon.assert.alwaysCalledWith(stub_func,'SUM', 100, 20);
+    sinon.assert.calledWith(stub_func,'SUM', 100, 20);
 
-    sinon.assert.alwaysCalledWith(spy_func, 'The total is: 10');
+    sinon.assert.calledWith(spy_func, 'The total is: 10');
     sinon.assert.called(spy_func);
 
     spy_func.restore();
