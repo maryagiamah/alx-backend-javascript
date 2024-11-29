@@ -21,6 +21,6 @@ describe('sendPaymentRequestToApi', () => {
     sinon.assert.called(spy_func);
 
     spy_func.restore();
-    stub_func.resetBehavior();
+    stub_func.restore();
   });
 });
