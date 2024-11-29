@@ -1,5 +1,4 @@
 const assert = require('assert');
-const app = require('./api')
 const axios = require('axios');
 
 describe('testApp', () => {
