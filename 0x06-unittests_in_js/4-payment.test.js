@@ -19,6 +19,6 @@ describe('testSendPaymentRequestToApi', () => {
     sinon.assert.alwaysCalledWith(spy_func, 'The total is: 10');
 
     spy_func.restore();
-    stub_func.restore();
+    stub_func.reset();
   });
 });
