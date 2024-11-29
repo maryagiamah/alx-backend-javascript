@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const Utils = require("./utils");
 const sendPaymentRequestToApi = require('./4-payment.js');
 
-describe('sendPaymentRequestToApi', () => {
+describe('testSendPaymentRequestToApi', () => {
   it('check that Utils.calculateNumber is stubbed', () => {
     const stub_func = sinon.stub(Utils, "calculateNumber").returns(10);
     const spy_func = sinon.spy(console, 'log');
